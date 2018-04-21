@@ -153,6 +153,7 @@
     <Compile Include="Controllers\LessonController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudyGroupController.cs" />
     <Compile Include="DAL\ContextInitializer.cs" />
     <Compile Include="DAL\StudentContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -227,6 +228,11 @@
     <Content Include="Views\Location\Details.cshtml" />
     <Content Include="Views\Location\Edit.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
+    <Content Include="Views\StudyGroup\Create.cshtml" />
+    <Content Include="Views\StudyGroup\Delete.cshtml" />
+    <Content Include="Views\StudyGroup\Details.cshtml" />
+    <Content Include="Views\StudyGroup\Edit.cshtml" />
+    <Content Include="Views\StudyGroup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
