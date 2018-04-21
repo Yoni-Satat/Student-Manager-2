@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace StudentManager2.Models
         
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CourseID { get; set; }
+        [Display(Name = "Course Title")]
         public string Title { get; set; }
+        [Display(Name = "Course Level")]
         public string Level { get; set; }
 
         public virtual ICollection<StudyGroup> StudyGroups { get; set; }

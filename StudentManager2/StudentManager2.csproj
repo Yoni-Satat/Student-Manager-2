@@ -170,6 +170,7 @@
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudyGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

@@ -8,18 +8,31 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManager2.DAL;
 using StudentManager2.Models;
+using StudentManager2.ViewModels;
 
 namespace StudentManager2.Controllers
 {
     public class StudyGroupController : Controller
     {
         private StudentContext db = new StudentContext();
+        private readonly object x;
 
         // GET: StudyGroup
-        public ActionResult Index()
+        public ActionResult Index(int? id, int? courseID)
         {
-            var studyGroups = db.StudyGroups.Include(s => s.Course);
-            return View(studyGroups.ToList());
+            var viewModel = new GroupIndexData();
+            viewModel.StudyGroups = db.StudyGroups
+                .Include(s => s.Course)
+                .Include(s => s.Course.Lessons)
+                .Include(s => s.Students);
+            if (id != null)
+            {
+                ViewBag.StudyGroupID = id.Value;
+                viewModel.Students = viewModel.StudyGroups.Where(
+                    s => s.StudyGroupID == id.Value).Single().Students;
+            }
+            
+            return View(viewModel);
         }
 
         // GET: StudyGroup/Details/5
