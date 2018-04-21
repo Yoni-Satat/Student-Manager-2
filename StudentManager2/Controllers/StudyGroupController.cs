@@ -31,12 +31,6 @@ namespace StudentManager2.Controllers
                 viewModel.Students = viewModel.StudyGroups.Where(
                     s => s.StudyGroupID == id.Value).Single().Students;
             }
-            if (courseID != null)
-            {
-                ViewBag.CourseID = courseID.Value;
-                viewModel.Lessons = viewModel.Course.Lessons.Where(
-                    l => l.CourseID == courseID.Value).ToList();
-            }
             return View(viewModel);
         }
 

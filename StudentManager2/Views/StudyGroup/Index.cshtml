@@ -12,13 +12,16 @@
 <table class="table">
     <tr>
         <th>
-           Group Title
+            Group Title
         </th>
         <th>
             Course Title
         </th>
         <th>
-            Course Level)
+            Course Level
+        </th>
+        <th>
+            See Lessons
         </th>
         <th></th>
     </tr>
@@ -39,7 +42,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Course.Level)
         </td>
+        
         <td>
+
             @Html.ActionLink("Select", "Index", new { id = item.StudyGroupID }) |
             @Html.ActionLink("Edit", "Edit", new { id = item.StudyGroupID }) |
             @Html.ActionLink("Details", "Details", new { id = item.StudyGroupID }) |
@@ -49,6 +54,7 @@
 }
 
 </table>
+
 
 @if (Model.Students != null)
 {
@@ -70,4 +76,9 @@
         </tr>
         }
     </table>
+}
+
+@if (Model.Lessons != null)
+{
+    <h3>Lessons</h3>
 }
