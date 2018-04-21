@@ -23,7 +23,7 @@ namespace StudentManager2.Controllers
             var viewModel = new GroupIndexData();
             viewModel.StudyGroups = db.StudyGroups
                 .Include(s => s.Course)
-                .Include(s => s.Course.Lessons)
+                .Include(s => s.Lessons)
                 .Include(s => s.Students);
             if (id != null)
             {
@@ -31,7 +31,12 @@ namespace StudentManager2.Controllers
                 viewModel.Students = viewModel.StudyGroups.Where(
                     s => s.StudyGroupID == id.Value).Single().Students;
             }
-            
+            if (courseID != null)
+            {
+                ViewBag.CourseID = courseID.Value;
+                viewModel.Lessons = viewModel.Course.Lessons.Where(
+                    l => l.CourseID == courseID.Value).ToList();
+            }
             return View(viewModel);
         }
 

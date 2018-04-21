@@ -24,7 +24,12 @@
     </tr>
 
 @foreach (var item in Model.StudyGroups) {
-    <tr>
+    string selectedRow = "";
+    if (item.StudyGroupID == ViewBag.StudyGroupID)
+    {
+        selectedRow = "success";
+    }
+    <tr class="@selectedRow">
         <td>
             @Html.DisplayFor(modelItem => item.GroupTitle)
         </td>
@@ -35,6 +40,7 @@
             @Html.DisplayFor(modelItem => item.Course.Level)
         </td>
         <td>
+            @Html.ActionLink("Select", "Index", new { id = item.StudyGroupID }) |
             @Html.ActionLink("Edit", "Edit", new { id = item.StudyGroupID }) |
             @Html.ActionLink("Details", "Details", new { id = item.StudyGroupID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.StudyGroupID })
@@ -43,3 +49,25 @@
 }
 
 </table>
+
+@if (Model.Students != null)
+{
+    <h3>Students in selected group</h3>
+    <table class="table">
+        <tr>
+            <th>Student name</th>
+            <th>Matriculation No.</th>
+            <th>Nationality</th>
+            <th>Date of Birth</th>
+        </tr>
+        @foreach(var student in Model.Students)
+        {
+        <tr>
+            <td>@student.FullName</td>
+            <td>@student.MatricNumber</td>
+            <td>@student.Origin</td>
+            <td>@student.DateOfBirth</td>
+        </tr>
+        }
+    </table>
+}
