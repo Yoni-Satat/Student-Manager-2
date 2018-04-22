@@ -16,9 +16,35 @@ namespace StudentManager2.Controllers
         private StudentContext db = new StudentContext();
 
         // GET: Student
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Students.ToList());
+            ViewBag.NameSortParm1 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParm1 = sortOrder == "firstname_desc" ? "firstname" : "firstname_desc";
+            
+            ViewBag.NameSortParm2 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParm2 = sortOrder == "lastname" ? "lastname_desc" : "lastname";
+            
+            var students = from s in db.Students
+                                       select s;
+            switch (sortOrder)
+            {
+                case "firstname_desc":
+                    students = students.OrderByDescending(s => s.FirstName);
+                    break;
+                case "firstname":
+                    students = students.OrderBy(s => s.FirstName);
+                    break;
+                case "lastname_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "lastname":
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.FirstName);
+                break;
+                            }
+                        return View(students.ToList());
         }
 
         // GET: Student/Details/5
