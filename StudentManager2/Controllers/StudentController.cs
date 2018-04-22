@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using StudentManager2.DAL;
 using StudentManager2.Models;
 
@@ -16,16 +15,33 @@ namespace StudentManager2.Controllers
         private StudentContext db = new StudentContext();
 
         // GET: Student
-        public ActionResult Index(string sortOrder)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm1 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
             ViewBag.NameSortParm1 = sortOrder == "firstname_desc" ? "firstname" : "firstname_desc";
             
             ViewBag.NameSortParm2 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
             ViewBag.NameSortParm2 = sortOrder == "lastname" ? "lastname_desc" : "lastname";
-            
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var students = from s in db.Students
-                                       select s;
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "firstname_desc":
@@ -43,8 +59,10 @@ namespace StudentManager2.Controllers
                 default:
                     students = students.OrderBy(s => s.FirstName);
                 break;
-                            }
-                        return View(students.ToList());
+            }
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Student/Details/5
