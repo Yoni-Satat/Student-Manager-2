@@ -37,6 +37,17 @@
             </div>
         </div>
     </div>
+    <table class="table">
+        <tr>
+            <th>Student name</th>
+        </tr>
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>@student.FullName</td>
+            </tr>
+        }
+    </table>
 }
 
 <div>

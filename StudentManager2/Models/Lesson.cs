@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace StudentManager2.Models
 {
@@ -24,5 +25,6 @@ namespace StudentManager2.Models
 
         public virtual Course Course { get; set; }
         public virtual Location Location { get; set; }
+        
     }
 }

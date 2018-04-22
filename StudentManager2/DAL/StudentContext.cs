@@ -9,6 +9,7 @@ namespace StudentManager2.DAL
 
         public StudentContext() : base("StudentContext")
         {
+            
             this.Configuration.LazyLoadingEnabled = false;
         }
 
@@ -17,6 +18,7 @@ namespace StudentManager2.DAL
         public DbSet<Course> Courses { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public object selectedStudent { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,7 +28,7 @@ namespace StudentManager2.DAL
                .HasMany(g => g.Students).WithMany(s => s.StudyGroups)
                .Map(t => t.MapLeftKey("GroupID")
                    .MapRightKey("StudentID")
-                   .ToTable("StudentGroup"));
+                   .ToTable("StudentGroup"));                    
         }
     }
 }
