@@ -41,5 +41,6 @@ namespace StudentManager2.Models
 
 
         public virtual ICollection<StudyGroup> StudyGroups { get; set; }
+        public virtual ICollection<AttendanceRecord> AttendanceRecords { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace StudentManager2.DAL
         public DbSet<Course> Courses { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
         public object selectedStudent { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,7 +30,11 @@ namespace StudentManager2.DAL
                    .MapRightKey("StudentID")
                    .ToTable("StudentGroup"));
 
-            
+            modelBuilder.Entity<Student>()
+                 .HasMany(s => s.AttendanceRecords).WithMany(a => a.Students)
+                 .Map(t => t.MapLeftKey("StudentID")
+                 .MapRightKey("AttendanceRecordID")
+                 .ToTable("StudentAttendanceRecord"));
         }        
     }
 }

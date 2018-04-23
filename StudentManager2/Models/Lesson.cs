@@ -25,6 +25,7 @@ namespace StudentManager2.Models
 
         public virtual Course Course { get; set; }
         public virtual Location Location { get; set; }
+        public virtual ICollection<AttendanceRecord> AttendanceRecords { get; set; }
         
     }
 }

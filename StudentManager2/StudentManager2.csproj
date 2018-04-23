@@ -154,6 +154,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AttendanceRecordController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonController.cs" />
@@ -169,7 +170,12 @@
     <Compile Include="Migrations\201804210056085_InitialCreate.Designer.cs">
       <DependentUpon>201804210056085_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804232048277_AddAttendanceRecordTable.cs" />
+    <Compile Include="Migrations\201804232048277_AddAttendanceRecordTable.Designer.cs">
+      <DependentUpon>201804232048277_AddAttendanceRecordTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AttendanceRecord.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\Location.cs" />
@@ -242,6 +248,11 @@
     <Content Include="Views\StudyGroup\Details.cshtml" />
     <Content Include="Views\StudyGroup\Edit.cshtml" />
     <Content Include="Views\StudyGroup\Index.cshtml" />
+    <Content Include="Views\AttendanceRecord\Create.cshtml" />
+    <Content Include="Views\AttendanceRecord\Delete.cshtml" />
+    <Content Include="Views\AttendanceRecord\Details.cshtml" />
+    <Content Include="Views\AttendanceRecord\Edit.cshtml" />
+    <Content Include="Views\AttendanceRecord\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -262,6 +273,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804210056085_InitialCreate.resx">
       <DependentUpon>201804210056085_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804232048277_AddAttendanceRecordTable.resx">
+      <DependentUpon>201804232048277_AddAttendanceRecordTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
