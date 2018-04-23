@@ -8,25 +8,41 @@
 
 <div>
     <h4>StudyGroup</h4>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.GroupTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.Course.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Course.Level)</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.GroupTitle)</td>
+            <td>@Html.DisplayFor(model => model.Course.Title)</td>
+            <td>@Html.DisplayFor(model => model.Course.Level)</td>
+        </tr>
+    </table>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Course.Title)
-        </dt>
+    <h3>Students</h3>
+    <table class="table">
+        <tr>
+            <th>Student Name</th>
+            <th>Date of Birth</th>
+            <th>Matriculation No.</th>
+            <th>Nationality</th>
+        </tr>
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>@student.FullName</td>
+                <td>@student.DateOfBirth</td>
+                <td>@student.MatricNumber</td>
+                <td>@student.Origin</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course.Title)
-        </dd>
+         }
+    </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GroupTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GroupTitle)
-        </dd>
-
-    </dl>
+   
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.StudyGroupID }) |

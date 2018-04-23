@@ -17,3 +17,4 @@ namespace StudentManager2.Models
         public virtual ICollection<Student> Students { get; set; }
     }
 }
+

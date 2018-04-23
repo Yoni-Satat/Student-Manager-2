@@ -177,6 +177,7 @@
     <Compile Include="Models\StudyGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AddStudentToGroup.cs" />
+    <Compile Include="ViewModels\GroupDetailsIndexData.cs" />
     <Compile Include="ViewModels\GroupIndexData.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,6 @@ namespace StudentManager2.DAL
 
         public StudentContext() : base("StudentContext")
         {
-            
             this.Configuration.LazyLoadingEnabled = false;
         }
 
@@ -28,7 +27,9 @@ namespace StudentManager2.DAL
                .HasMany(g => g.Students).WithMany(s => s.StudyGroups)
                .Map(t => t.MapLeftKey("GroupID")
                    .MapRightKey("StudentID")
-                   .ToTable("StudentGroup"));                    
-        }
+                   .ToTable("StudentGroup"));
+
+            
+        }        
     }
 }

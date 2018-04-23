@@ -10,6 +10,7 @@ using StudentManager2.DAL;
 using StudentManager2.Models;
 using StudentManager2.ViewModels;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace StudentManager2.Controllers
 {
@@ -42,11 +43,19 @@ namespace StudentManager2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StudyGroup studyGroup = db.StudyGroups.Find(id);
+            StudyGroup studyGroup = db.StudyGroups
+                .Include(s => s.Students)
+                .Include(s => s.Course)
+                .Where(s => s.StudyGroupID == id).Single();
+
+
+            PopulateStudentsList(studyGroup);
+
             if (studyGroup == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", studyGroup.CourseID);
             return View(studyGroup);
         }
 
