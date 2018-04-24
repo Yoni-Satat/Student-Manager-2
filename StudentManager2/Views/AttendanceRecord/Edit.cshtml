@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>AttendanceRecord</h4>
         <hr />
@@ -71,7 +71,35 @@
             </div>
         </div>
     </div>
-}
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                <tr>
+                    @{
+                        int cnt = 0;
+                        List<StudentManager2.ViewModels.StudentsAttendanceRecord> students = ViewBag.Students;
+
+                        foreach (var student in students)
+                        {
+                            if (cnt++ % 3 == 0)
+                            {
+                                @:</tr><tr>
+                            }
+                            @:<td>
+                                <input type="checkbox"
+                                       name="selectedStudents"
+                                       value="@student.StudentID"
+                                       @(Html.Raw(student.AddStudent ? "checked=\"checked\"" : "")) />
+                                       @student.FullName
+                            @:</td >
+                        }
+                        @:</tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
 
 <div>
     @Html.ActionLink("Back to List", "Index")

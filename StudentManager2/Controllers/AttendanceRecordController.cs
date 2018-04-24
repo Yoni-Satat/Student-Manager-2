@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StudentManager2.DAL;
 using StudentManager2.Models;
+using StudentManager2.ViewModels;
 
 namespace StudentManager2.Controllers
 {
@@ -63,19 +65,45 @@ namespace StudentManager2.Controllers
         }
 
         // GET: AttendanceRecord/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? studyGroupID)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AttendanceRecord attendanceRecord = db.AttendanceRecords.Find(id);
+
+            AttendanceRecord attendanceRecord = db.AttendanceRecords.Include(ar => ar.Students)
+                .Where(ar => ar.AttendanceRecordID == id).Single();
+            PopulateStudentAttendanceRecord(attendanceRecord);
+
+
+
             if (attendanceRecord == null)
             {
                 return HttpNotFound();
             }
+            
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
             return View(attendanceRecord);
+        }
+
+        private void PopulateStudentAttendanceRecord(AttendanceRecord attendance)
+        {
+            var selectedGroup = db.StudyGroups.Where(sg => sg.StudyGroupID == attendance.StudyGroupID).Single();
+            //var students = db.Students;
+            var studyGroupStudents = new HashSet<int>(attendance.Students.Select(s => s.StudentID));
+            db.Entry(selectedGroup).Collection(sg => sg.Students).Load();
+            var viewModel = new List<StudentsAttendanceRecord>();
+            foreach (Student student in selectedGroup.Students)
+            {
+                viewModel.Add(new StudentsAttendanceRecord
+                {
+                    StudentID = student.StudentID,
+                    FullName = student.FullName,
+                    AddStudent = studyGroupStudents.Contains(student.StudentID)
+                });
+            }
+            ViewBag.Students = viewModel;
         }
 
         // POST: AttendanceRecord/Edit/5
@@ -83,16 +111,66 @@ namespace StudentManager2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AttendanceRecordID,StudyGroupID,TutorName,Notes,Date,Time,LocationID")] AttendanceRecord attendanceRecord)
+        public ActionResult Edit(int? id, string[] selectedStudents)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(attendanceRecord).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
-            return View(attendanceRecord);
+            var recordToUpdate = db.AttendanceRecords
+               .Include(s => s.Students)
+               .Where(s => s.AttendanceRecordID == id)
+               .Single();
+            if (TryUpdateModel(recordToUpdate, "",
+                new string[] { "GroupTitle" }))
+            {
+                try
+                {
+
+                    UpdateAttendanceRecord(selectedStudents, recordToUpdate);
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            PopulateStudentAttendanceRecord(recordToUpdate);
+            return View(recordToUpdate);
+        }
+
+        private void UpdateAttendanceRecord(string[] selectedStudents, AttendanceRecord recordToUpdate)
+        {
+            if (selectedStudents == null)
+            {
+                recordToUpdate.Students = new List<Student>();
+                return;
+            }
+
+            var selectedStudentsHS = new HashSet<string>(selectedStudents);
+            var groupStudents = new HashSet<int>
+                (recordToUpdate.Students.Select(s => s.StudentID));
+            foreach (var student in db.Students)
+            {
+                if (selectedStudentsHS.Contains(student.StudentID.ToString()))
+                {
+                    if (!groupStudents.Contains(student.StudentID))
+                    {
+                        recordToUpdate.Students.Add(student);
+                    }
+                }
+                else
+                {
+                    if (groupStudents.Contains(student.StudentID))
+                    {
+                        recordToUpdate.Students.Remove(student);
+                    }
+                }
+            }
         }
 
         // GET: AttendanceRecord/Delete/5
