@@ -20,7 +20,7 @@ namespace StudentManager2.Controllers
         // GET: AttendanceRecord
         public ActionResult Index()
         {
-            var attendanceRecords = db.AttendanceRecords.Include(a => a.StudyGroup);
+            var attendanceRecords = db.AttendanceRecords.Include(a => a.StudyGroup).Include(a => a.Location);
             return View(attendanceRecords.ToList());
         }
 
@@ -43,6 +43,7 @@ namespace StudentManager2.Controllers
         public ActionResult Create()
         {
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle");
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building");
             return View();
         }
 
@@ -61,19 +62,23 @@ namespace StudentManager2.Controllers
             }
 
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
+            ViewBag.LocattionID = new SelectList(db.Locations, "LocationID", "Building", attendanceRecord.LocationID);
             return View(attendanceRecord);
         }
 
         // GET: AttendanceRecord/Edit/5
-        public ActionResult Edit(int? id, int? studyGroupID)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            AttendanceRecord attendanceRecord = db.AttendanceRecords.Include(ar => ar.Students)
-                .Where(ar => ar.AttendanceRecordID == id).Single();
+            AttendanceRecord attendanceRecord = db.AttendanceRecords
+                .Include(ar => ar.Location)
+                .Include(ar => ar.Course)
+                .Include(ar => ar.StudyGroup)
+                .Include(ar => ar.Students).Where(ar => ar.AttendanceRecordID == id).Single();
             PopulateStudentAttendanceRecord(attendanceRecord);
 
 
@@ -82,7 +87,7 @@ namespace StudentManager2.Controllers
             {
                 return HttpNotFound();
             }
-            
+            ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", attendanceRecord.LocationID);
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
             return View(attendanceRecord);
         }
@@ -118,11 +123,12 @@ namespace StudentManager2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var recordToUpdate = db.AttendanceRecords
+               .Include(s => s.Location)
                .Include(s => s.Students)
                .Where(s => s.AttendanceRecordID == id)
                .Single();
             if (TryUpdateModel(recordToUpdate, "",
-                new string[] { "GroupTitle" }))
+                new string[] { "StudyGroupID", "LocationID", "TutorName", "Notes", "Date", "Time" }))
             {
                 try
                 {

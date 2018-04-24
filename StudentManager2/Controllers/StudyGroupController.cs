@@ -146,7 +146,7 @@ namespace StudentManager2.Controllers
                .Single();
 
             if (TryUpdateModel(groupToUpdate, "",
-                new string[] { "GroupTitle" }))
+                new string[] { "GroupTitle", "CourseID" }))
             {
                 try
                 {

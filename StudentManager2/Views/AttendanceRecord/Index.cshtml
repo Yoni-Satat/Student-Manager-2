@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.StudyGroup.GroupTitle)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.TutorName)
         </th>
         <th>
@@ -26,9 +29,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Time)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationID)
-        </th>
         <th></th>
     </tr>
 
@@ -36,6 +36,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.StudyGroup.GroupTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location.Building)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TutorName)
@@ -50,12 +53,9 @@
             @Html.DisplayFor(modelItem => item.Time)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LocationID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AttendanceRecordID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AttendanceRecordID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AttendanceRecordID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.AttendanceRecordID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.AttendanceRecordID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.AttendanceRecordID })
         </td>
     </tr>
 }
