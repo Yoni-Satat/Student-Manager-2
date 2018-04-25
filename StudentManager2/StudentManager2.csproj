@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201804241706327_UpdateAttendanceRecordTable.Designer.cs">
       <DependentUpon>201804241706327_UpdateAttendanceRecordTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804251606151_AddCourseAndLessonIDtoAttendanceRecord.cs" />
+    <Compile Include="Migrations\201804251606151_AddCourseAndLessonIDtoAttendanceRecord.Designer.cs">
+      <DependentUpon>201804251606151_AddCourseAndLessonIDtoAttendanceRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AttendanceRecord.cs" />
     <Compile Include="Models\Course.cs" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804241706327_UpdateAttendanceRecordTable.resx">
       <DependentUpon>201804241706327_UpdateAttendanceRecordTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804251606151_AddCourseAndLessonIDtoAttendanceRecord.resx">
+      <DependentUpon>201804251606151_AddCourseAndLessonIDtoAttendanceRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

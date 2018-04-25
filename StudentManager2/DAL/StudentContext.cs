@@ -35,6 +35,8 @@ namespace StudentManager2.DAL
                  .Map(t => t.MapLeftKey("StudentID")
                  .MapRightKey("AttendanceRecordID")
                  .ToTable("StudentAttendanceRecord"));
+
+            
         }        
     }
 }

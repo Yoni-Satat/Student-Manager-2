@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.StudyGroup.GroupTitle)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.StudyGroup.Course.Title)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Location)
         </th>
         <th>
@@ -36,6 +39,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.StudyGroup.GroupTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudyGroup.Course.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Location.Building)

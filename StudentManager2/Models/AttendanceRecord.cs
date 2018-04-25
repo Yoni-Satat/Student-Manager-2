@@ -9,6 +9,8 @@ namespace StudentManager2.Models
         public int AttendanceRecordID { get; set; }
         public int? StudyGroupID { get; set; }
         public int? LocationID { get; set; }
+        public int? CourseID { get; set; }
+        public int? LessonID { get; set; }
         public string TutorName { get; set; }
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }

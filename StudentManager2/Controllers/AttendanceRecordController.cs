@@ -20,7 +20,7 @@ namespace StudentManager2.Controllers
         // GET: AttendanceRecord
         public ActionResult Index()
         {
-            var attendanceRecords = db.AttendanceRecords.Include(a => a.StudyGroup).Include(a => a.Location);
+            var attendanceRecords = db.AttendanceRecords.Include(a => a.StudyGroup).Include(a => a.Location).Include(a => a.StudyGroup.Course);
             return View(attendanceRecords.ToList());
         }
 
@@ -76,17 +76,18 @@ namespace StudentManager2.Controllers
 
             AttendanceRecord attendanceRecord = db.AttendanceRecords
                 .Include(ar => ar.Location)
-                .Include(ar => ar.Course)
+                .Include(ar => ar.StudyGroup.Course)
+                .Include(ar => ar.Lesson)
                 .Include(ar => ar.StudyGroup)
                 .Include(ar => ar.Students).Where(ar => ar.AttendanceRecordID == id).Single();
             PopulateStudentAttendanceRecord(attendanceRecord);
-
-
 
             if (attendanceRecord == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.CourseID = attendanceRecord.StudyGroup.CourseID;
+            ViewBag.LessonID = new SelectList(db.Lessons.Where(l => l.CourseID == attendanceRecord.StudyGroup.CourseID), "LessonID", "Topic", attendanceRecord.LessonID);
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", attendanceRecord.LocationID);
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
             return View(attendanceRecord);
@@ -110,6 +111,9 @@ namespace StudentManager2.Controllers
             }
             ViewBag.Students = viewModel;
         }
+
+        
+
 
         // POST: AttendanceRecord/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

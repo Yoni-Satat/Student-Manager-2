@@ -9,7 +9,6 @@ namespace StudentManager2.ViewModels
     {
         public int StudentID { get; set; }
         public string FullName { get; set; }
-        public int AttendanceRecordID { get; set; }
         public bool AddStudent { get; set; }
     }
 }
