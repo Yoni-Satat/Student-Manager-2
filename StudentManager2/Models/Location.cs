@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
 
 namespace StudentManager2.Models
 {
@@ -15,5 +17,7 @@ namespace StudentManager2.Models
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
         // In View: Html.EditorFor(m => m.Notes)
+
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }

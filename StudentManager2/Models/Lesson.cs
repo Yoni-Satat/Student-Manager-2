@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentManager2.Models
 {
@@ -8,6 +9,7 @@ namespace StudentManager2.Models
     {
         public int LessonID { get; set; }
         public int CourseID { get; set; }
+        [ForeignKey("Location")]
         public int? LocationID { get; set; }
 
         public string Topic { get; set; }
