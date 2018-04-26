@@ -20,7 +20,11 @@ namespace StudentManager2.Controllers
         // GET: AttendanceRecord
         public ActionResult Index()
         {
-            var attendanceRecords = db.AttendanceRecords.Include(a => a.StudyGroup).Include(a => a.Location).Include(a => a.StudyGroup.Course);
+            var attendanceRecords = db.AttendanceRecords
+                .Include(a => a.StudyGroup)
+                .Include(a => a.Location)
+                .Include(a => a.StudyGroup.Course)
+                .Include(a => a.Lesson);
             return View(attendanceRecords.ToList());
         }
 
@@ -132,7 +136,7 @@ namespace StudentManager2.Controllers
                .Where(s => s.AttendanceRecordID == id)
                .Single();
             if (TryUpdateModel(recordToUpdate, "",
-                new string[] { "StudyGroupID", "LocationID", "TutorName", "Notes", "Date", "Time" }))
+                new string[] { "StudyGroupID", "LocationID", "TutorName", "Notes", "Date", "Time", "LessonID" }))
             {
                 try
                 {

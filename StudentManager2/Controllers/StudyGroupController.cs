@@ -19,21 +19,36 @@ namespace StudentManager2.Controllers
         private StudentContext db = new StudentContext();
 
         // GET: StudyGroup
-        public ActionResult Index(int? id, int? studentID)
+        public ActionResult Index(string sortOrder)
         {
-            var viewModel = new GroupIndexData();
-            viewModel.StudyGroups = db.StudyGroups
-                .Include(s => s.Course)
-                .Include(s => s.Course.Lessons)
-                .Include(s => s.Students);
-            if (id != null)
-            {
-                ViewBag.StudyGroupID = id.Value;
-                viewModel.Students = viewModel.StudyGroups.Where(
-                    s => s.StudyGroupID == id.Value).Single().Students;
-            }
+            ViewBag.NameSortParm1 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParm1 = sortOrder == "group_desc" ? "group" : "group_desc";
 
-            return View(viewModel);
+            ViewBag.NameSortParm2 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParm2 = sortOrder == "course" ? "course_desc" : "course";
+
+            ViewBag.NameSortParm3 = String.IsNullOrEmpty(sortOrder) ? "name" : "";
+            ViewBag.NameSortParm3 = sortOrder == "level" ? "level_desc" : "level";
+
+            var studyGroups = from sg in db.StudyGroups
+                              .Include(s => s.Course)
+                           select sg;
+            switch (sortOrder)
+            {
+                case "group_desc":
+                    studyGroups = studyGroups.OrderByDescending(s => s.GroupTitle);
+                    break;
+                case "course":
+                    studyGroups = studyGroups.OrderByDescending(s => s.Course.Title);
+                    break;
+                case "level":
+                    studyGroups = studyGroups.OrderByDescending(s => s.Course.Level);
+                    break;
+                default:
+                    studyGroups = studyGroups.OrderBy(s => s.GroupTitle);
+                    break;
+            }
+            return View(studyGroups.ToList());
         }
 
         // GET: StudyGroup/Details/5

@@ -1,4 +1,4 @@
-﻿@model StudentManager2.ViewModels.GroupIndexData
+﻿@model IEnumerable<StudentManager2.Models.StudyGroup>
 
 @{
     ViewBag.Title = "Study Groups";
@@ -12,41 +12,37 @@
 <table class="table">
     <tr>
         <th>
-            Group Title
+            @Html.ActionLink("Group Title", "Index", new { sortOrder = ViewBag.NameSortParm1 })
         </th>
         <th>
-            Course Title
+            @Html.ActionLink("Course Title", "Index", new { sortOrder = ViewBag.NameSortParm2 })
         </th>
         <th>
-            Course Level
+            @Html.ActionLink("Course Level", "Index", new { sortOrder = ViewBag.NameSortParm3 })
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model.StudyGroups) {
-    string selectedRow = "";
-    if (item.StudyGroupID == ViewBag.StudyGroupID)
+    @foreach (var item in Model)
     {
-        selectedRow = "success";
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Level)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudyGroupID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StudyGroupID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudyGroupID })
+            </td>
+        </tr>
     }
-    <tr class="@selectedRow">
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.Level)
-        </td>
-        
-        <td>                       
-            @Html.ActionLink("Edit", "Edit", new { id = item.StudyGroupID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.StudyGroupID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.StudyGroupID })
-        </td>
-    </tr>
-}
 
 </table>
