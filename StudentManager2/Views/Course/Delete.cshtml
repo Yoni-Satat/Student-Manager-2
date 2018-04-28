@@ -28,6 +28,17 @@
         </dd>
 
     </dl>
+    @foreach(var group in Model.StudyGroups)
+    {
+        if (group.CourseID == Model.CourseID)
+        {
+            <div class="text-center label-danger">
+                <h3>WARNING!</h3>
+                <p>Deleting this Course will delete all Lessons and Study Groups associated with it</p>
+                <p><strong>ARE YOU SURE YOU WANT TO PROCEED?</strong></p>
+            </div>
+        }
+    }
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

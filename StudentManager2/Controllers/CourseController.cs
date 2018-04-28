@@ -91,13 +91,13 @@ namespace StudentManager2.Controllers
         }
 
         // GET: Course/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, int? groupID)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = db.Courses.Include(c => c.StudyGroups).Where(c => c.CourseID == id).Single();
             if (course == null)
             {
                 return HttpNotFound();
@@ -105,17 +105,20 @@ namespace StudentManager2.Controllers
             return View(course);
         }
 
+        
+
         // POST: Course/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, int? locationID) 
+        public ActionResult DeleteConfirmed(int id) 
         {
             Course course = db.Courses.Find(id);
-            
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {

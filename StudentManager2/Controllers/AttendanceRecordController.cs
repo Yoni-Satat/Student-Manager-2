@@ -60,7 +60,7 @@ namespace StudentManager2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AttendanceRecords.Add(attendanceRecord);
+                db.AttendanceRecords.Add(attendanceRecord);                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
