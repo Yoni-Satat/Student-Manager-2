@@ -90,8 +90,9 @@ namespace StudentManager2.Controllers
             {
                 return HttpNotFound();
             }
+            var lessonID = db.Lessons.Where(l => l.CourseID == attendanceRecord.StudyGroup.CourseID);
             ViewBag.CourseID = attendanceRecord.StudyGroup.CourseID;
-            ViewBag.LessonID = new SelectList(db.Lessons.Where(l => l.CourseID == attendanceRecord.StudyGroup.CourseID), "LessonID", "Topic", attendanceRecord.LessonID);
+            ViewBag.LessonID = new SelectList(lessonID, "LessonID", "Topic", attendanceRecord.LessonID);
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building", attendanceRecord.LocationID);
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
             return View(attendanceRecord);
@@ -142,7 +143,8 @@ namespace StudentManager2.Controllers
                 {
 
                     UpdateAttendanceRecord(selectedStudents, recordToUpdate);
-
+                    var selectedRecord = db.AttendanceRecords.Where(a => a.AttendanceRecordID == id).Single();
+                    db.Entry(selectedRecord).State = EntityState.Added;
                     db.SaveChanges();
 
                     return RedirectToAction("Index");

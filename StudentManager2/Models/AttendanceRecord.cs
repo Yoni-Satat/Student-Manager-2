@@ -9,6 +9,7 @@ namespace StudentManager2.Models
     {
         public int AttendanceRecordID { get; set; }
         public int? StudyGroupID { get; set; }
+        [ForeignKey("Location")]
         public int? LocationID { get; set; }
         public int? CourseID { get; set; }
         public int? LessonID { get; set; }

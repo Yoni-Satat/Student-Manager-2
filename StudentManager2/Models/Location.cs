@@ -19,5 +19,6 @@ namespace StudentManager2.Models
         // In View: Html.EditorFor(m => m.Notes)
 
         public virtual ICollection<Lesson> Lessons { get; set; }
+        public virtual ICollection<AttendanceRecord> AttendanceRecords { get; set; }
     }
 }

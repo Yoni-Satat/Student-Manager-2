@@ -108,9 +108,10 @@ namespace StudentManager2.Controllers
         // POST: Course/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, int? locationID) 
         {
             Course course = db.Courses.Find(id);
+            
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");

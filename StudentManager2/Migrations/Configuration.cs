@@ -21,7 +21,10 @@ namespace StudentManager2.Migrations
             {
                 new Location{Building="CMB",RoomNumber=1.12,Notes="Take Laptop with HDMI"},
                 new Location{Building="TL",RoomNumber=2.56,Notes="Ask Euan for projector"},
-                new Location{Building="Main Library",RoomNumber=3.12,Notes="Quite please..."}
+                new Location{Building="Main Library",RoomNumber=3.12,Notes="Quite please..."},
+                new Location{Building="King's Building",RoomNumber=1.22,Notes="Mind the gap"},
+                new Location{Building="TLV",RoomNumber=1.23,Notes="Good for lab work"},
+                new Location{Building="BLT",RoomNumber=3.12,Notes="Close to the cfetiria"}
             };
             Location.ForEach(s => context.Locations.AddOrUpdate(p => p.LocationID, s));
             context.SaveChanges();

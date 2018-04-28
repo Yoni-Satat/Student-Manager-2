@@ -170,25 +170,17 @@
     <Compile Include="Migrations\201804210056085_InitialCreate.Designer.cs">
       <DependentUpon>201804210056085_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804232048277_AddAttendanceRecordTable.cs" />
-    <Compile Include="Migrations\201804232048277_AddAttendanceRecordTable.Designer.cs">
-      <DependentUpon>201804232048277_AddAttendanceRecordTable.cs</DependentUpon>
+    <Compile Include="Migrations\201804272205546_AddAttendanceRecord.cs" />
+    <Compile Include="Migrations\201804272205546_AddAttendanceRecord.Designer.cs">
+      <DependentUpon>201804272205546_AddAttendanceRecord.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804241706327_UpdateAttendanceRecordTable.cs" />
-    <Compile Include="Migrations\201804241706327_UpdateAttendanceRecordTable.Designer.cs">
-      <DependentUpon>201804241706327_UpdateAttendanceRecordTable.cs</DependentUpon>
+    <Compile Include="Migrations\201804272208441_UpdateLessonLocation.cs" />
+    <Compile Include="Migrations\201804272208441_UpdateLessonLocation.Designer.cs">
+      <DependentUpon>201804272208441_UpdateLessonLocation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804251606151_AddCourseAndLessonIDtoAttendanceRecord.cs" />
-    <Compile Include="Migrations\201804251606151_AddCourseAndLessonIDtoAttendanceRecord.Designer.cs">
-      <DependentUpon>201804251606151_AddCourseAndLessonIDtoAttendanceRecord.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804262154466_ChangedOptionalRelatiomship.cs" />
-    <Compile Include="Migrations\201804262154466_ChangedOptionalRelatiomship.Designer.cs">
-      <DependentUpon>201804262154466_ChangedOptionalRelatiomship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804262158023_ChangedOptionalRelatiomship2.cs" />
-    <Compile Include="Migrations\201804262158023_ChangedOptionalRelatiomship2.Designer.cs">
-      <DependentUpon>201804262158023_ChangedOptionalRelatiomship2.cs</DependentUpon>
+    <Compile Include="Migrations\201804281651414_UpdateAttendanceLocation.cs" />
+    <Compile Include="Migrations\201804281651414_UpdateAttendanceLocation.Designer.cs">
+      <DependentUpon>201804281651414_UpdateAttendanceLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AttendanceRecord.cs" />
@@ -291,20 +283,14 @@
     <EmbeddedResource Include="Migrations\201804210056085_InitialCreate.resx">
       <DependentUpon>201804210056085_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804232048277_AddAttendanceRecordTable.resx">
-      <DependentUpon>201804232048277_AddAttendanceRecordTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804272205546_AddAttendanceRecord.resx">
+      <DependentUpon>201804272205546_AddAttendanceRecord.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804241706327_UpdateAttendanceRecordTable.resx">
-      <DependentUpon>201804241706327_UpdateAttendanceRecordTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804272208441_UpdateLessonLocation.resx">
+      <DependentUpon>201804272208441_UpdateLessonLocation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804251606151_AddCourseAndLessonIDtoAttendanceRecord.resx">
-      <DependentUpon>201804251606151_AddCourseAndLessonIDtoAttendanceRecord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804262154466_ChangedOptionalRelatiomship.resx">
-      <DependentUpon>201804262154466_ChangedOptionalRelatiomship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804262158023_ChangedOptionalRelatiomship2.resx">
-      <DependentUpon>201804262158023_ChangedOptionalRelatiomship2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804281651414_UpdateAttendanceLocation.resx">
+      <DependentUpon>201804281651414_UpdateAttendanceLocation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

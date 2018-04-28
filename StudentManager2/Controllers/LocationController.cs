@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using StudentManager2.DAL;
 using StudentManager2.Models;
+using StudentManager2.ViewModels;
 
 namespace StudentManager2.Controllers
 {

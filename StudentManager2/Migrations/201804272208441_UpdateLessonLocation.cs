@@ -3,7 +3,7 @@ namespace StudentManager2.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ChangedOptionalRelatiomship2 : DbMigration
+    public partial class UpdateLessonLocation : DbMigration
     {
         public override void Up()
         {

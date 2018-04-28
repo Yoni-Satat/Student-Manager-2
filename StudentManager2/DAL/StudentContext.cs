@@ -36,15 +36,15 @@ namespace StudentManager2.DAL
                  .MapRightKey("AttendanceRecordID")
                  .ToTable("StudentAttendanceRecord"));
 
-            modelBuilder.Entity<AttendanceRecord>()
-                .HasOptional(a => a.Location)
-                .WithMany() // or WithMany(u => u.Feedbacks)
-                .HasForeignKey(a => a.LocationID);
-
             modelBuilder.Entity<Lesson>()
-                .HasOptional(a => a.Location)
-                .WithMany() // or WithMany(u => u.Feedbacks)
-                .HasForeignKey(a => a.LocationID);
+                .HasOptional(l => l.Location)
+                .WithMany()
+                .HasForeignKey(l => l.LocationID);
+
+            modelBuilder.Entity<AttendanceRecord>()
+                .HasOptional(ar => ar.Location)
+                .WithMany()
+                .HasForeignKey(ar => ar.LocationID);
         }        
     }
 }
