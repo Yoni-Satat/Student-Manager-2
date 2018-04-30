@@ -45,6 +45,8 @@ namespace StudentManager2.DAL
                 .HasOptional(ar => ar.Location)
                 .WithMany()
                 .HasForeignKey(ar => ar.LocationID);
+
+            
         }        
     }
 }

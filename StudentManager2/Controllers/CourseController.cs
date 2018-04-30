@@ -91,7 +91,7 @@ namespace StudentManager2.Controllers
         }
 
         // GET: Course/Delete/5
-        public ActionResult Delete(int? id, int? groupID)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {

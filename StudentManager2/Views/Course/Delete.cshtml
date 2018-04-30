@@ -4,9 +4,19 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2 class="text-center text-danger">Deleting this course will also delete its associated Study Group</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="text-center">Are you sure you want to delete this?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
 <div>
     <h4>Course</h4>
     <hr />
@@ -28,24 +38,7 @@
         </dd>
 
     </dl>
-    @foreach(var group in Model.StudyGroups)
-    {
-        if (group.CourseID == Model.CourseID)
-        {
-            <div class="text-center label-danger">
-                <h3>WARNING!</h3>
-                <p>Deleting this Course will delete all Lessons and Study Groups associated with it</p>
-                <p><strong>ARE YOU SURE YOU WANT TO PROCEED?</strong></p>
-            </div>
-        }
-    }
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+
 </div>
