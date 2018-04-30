@@ -170,17 +170,9 @@
     <Compile Include="Migrations\201804210056085_InitialCreate.Designer.cs">
       <DependentUpon>201804210056085_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804272205546_AddAttendanceRecord.cs" />
-    <Compile Include="Migrations\201804272205546_AddAttendanceRecord.Designer.cs">
-      <DependentUpon>201804272205546_AddAttendanceRecord.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804272208441_UpdateLessonLocation.cs" />
-    <Compile Include="Migrations\201804272208441_UpdateLessonLocation.Designer.cs">
-      <DependentUpon>201804272208441_UpdateLessonLocation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804281651414_UpdateAttendanceLocation.cs" />
-    <Compile Include="Migrations\201804281651414_UpdateAttendanceLocation.Designer.cs">
-      <DependentUpon>201804281651414_UpdateAttendanceLocation.cs</DependentUpon>
+    <Compile Include="Migrations\201804301912141_AddAttendanceRecordTable.cs" />
+    <Compile Include="Migrations\201804301912141_AddAttendanceRecordTable.Designer.cs">
+      <DependentUpon>201804301912141_AddAttendanceRecordTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AttendanceRecord.cs" />
@@ -283,14 +275,8 @@
     <EmbeddedResource Include="Migrations\201804210056085_InitialCreate.resx">
       <DependentUpon>201804210056085_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804272205546_AddAttendanceRecord.resx">
-      <DependentUpon>201804272205546_AddAttendanceRecord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804272208441_UpdateLessonLocation.resx">
-      <DependentUpon>201804272208441_UpdateLessonLocation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804281651414_UpdateAttendanceLocation.resx">
-      <DependentUpon>201804281651414_UpdateAttendanceLocation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804301912141_AddAttendanceRecordTable.resx">
+      <DependentUpon>201804301912141_AddAttendanceRecordTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

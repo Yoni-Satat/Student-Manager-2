@@ -13,16 +13,14 @@ namespace StudentManager2.Models
         public int? LocationID { get; set; }
         public int? CourseID { get; set; }
         public int? LessonID { get; set; }
+        [Display(Name = "Tutor Name")]
         public string TutorName { get; set; }
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
-        [DataType(DataType.Time)]
+        [DataType(DataType.Time)][Column(TypeName = "DateTime2")]
         public DateTime Time { get; set; }
-        
-
-
 
         public virtual Course Course { get; set; }
         public virtual Lesson Lesson { get; set; }

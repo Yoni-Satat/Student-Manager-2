@@ -13,6 +13,7 @@ namespace StudentManager2.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            
         }
 
         protected override void Seed(StudentContext context)
@@ -76,7 +77,13 @@ namespace StudentManager2.Migrations
                 new Lesson{CourseID=1000,LocationID=3,Topic="Variables"},
                 new Lesson{CourseID=1000,LocationID=2,Topic="Constant"},
                 new Lesson{CourseID=1000,LocationID=1,Topic="All day lab"},
-                new Lesson{CourseID=1000,LocationID=3,Topic="Presentations"}
+                new Lesson{CourseID=1000,LocationID=3,Topic="Presentations"},
+                new Lesson{CourseID=1001,LocationID=1,Topic="First Lesson"},
+                new Lesson{CourseID=1001,LocationID=2,Topic="Second Lesson"},
+                new Lesson{CourseID=1001,LocationID=3,Topic="Third Lesson"},
+                new Lesson{CourseID=1001,LocationID=2,Topic="Fourth Lesson"},
+                new Lesson{CourseID=1001,LocationID=1,Topic="Fifth Lesson"},
+                new Lesson{CourseID=1001,LocationID=3,Topic="Sixth Lesson"}
             };
             lessons.ForEach(s => context.Lessons.AddOrUpdate(p => p.LessonID, s));
             context.SaveChanges();

@@ -60,8 +60,24 @@ namespace StudentManager2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AttendanceRecords.Add(attendanceRecord);                
-                db.SaveChanges();
+                using (var context = new StudentContext())
+                {
+                    var record = new AttendanceRecord
+                    {
+                        StudyGroupID = attendanceRecord.StudyGroupID,
+                        TutorName = attendanceRecord.TutorName,
+                        Notes = attendanceRecord.Notes,
+                        Date = DateTime.Now,
+                        Time = DateTime.Now,
+                        LocationID = attendanceRecord.LocationID
+                    };
+                    context.Entry(record).State = EntityState.Added;
+                    context.SaveChanges();
+                }
+                
+                //db.AttendanceRecords.Add(attendanceRecord);
+                //db.Entry(attendanceRecord).State = EntityState.Added;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -144,7 +160,7 @@ namespace StudentManager2.Controllers
 
                     UpdateAttendanceRecord(selectedStudents, recordToUpdate);
                     var selectedRecord = db.AttendanceRecords.Where(a => a.AttendanceRecordID == id).Single();
-                    db.Entry(selectedRecord).State = EntityState.Added;
+                    db.Entry(selectedRecord).State = EntityState.Modified;
                     db.SaveChanges();
 
                     return RedirectToAction("Index");

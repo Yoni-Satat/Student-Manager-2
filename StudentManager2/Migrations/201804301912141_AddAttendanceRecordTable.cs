@@ -3,7 +3,7 @@ namespace StudentManager2.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddAttendanceRecord : DbMigration
+    public partial class AddAttendanceRecordTable : DbMigration
     {
         public override void Up()
         {
@@ -20,16 +20,19 @@ namespace StudentManager2.Migrations
                         Notes = c.String(),
                         Date = c.DateTime(nullable: false),
                         Time = c.DateTime(nullable: false),
+                        Location_LocationID = c.Int(),
                     })
                 .PrimaryKey(t => t.AttendanceRecordID)
-                .ForeignKey("dbo.Lesson", t => t.LessonID)
+                .ForeignKey("dbo.Lesson", t => t.LessonID, cascadeDelete: true)
+                .ForeignKey("dbo.Location", t => t.Location_LocationID)
                 .ForeignKey("dbo.Course", t => t.CourseID)
                 .ForeignKey("dbo.Location", t => t.LocationID)
                 .ForeignKey("dbo.StudyGroup", t => t.StudyGroupID)
                 .Index(t => t.StudyGroupID)
                 .Index(t => t.LocationID)
                 .Index(t => t.CourseID)
-                .Index(t => t.LessonID);
+                .Index(t => t.LessonID)
+                .Index(t => t.Location_LocationID);
             
             CreateTable(
                 "dbo.StudentAttendanceRecord",
@@ -44,6 +47,9 @@ namespace StudentManager2.Migrations
                 .Index(t => t.StudentID)
                 .Index(t => t.AttendanceRecordID);
             
+            AddColumn("dbo.Lesson", "Location_LocationID", c => c.Int());
+            CreateIndex("dbo.Lesson", "Location_LocationID");
+            AddForeignKey("dbo.Lesson", "Location_LocationID", "dbo.Location", "LocationID");
         }
         
         public override void Down()
@@ -53,13 +59,18 @@ namespace StudentManager2.Migrations
             DropForeignKey("dbo.AttendanceRecord", "CourseID", "dbo.Course");
             DropForeignKey("dbo.StudentAttendanceRecord", "AttendanceRecordID", "dbo.AttendanceRecord");
             DropForeignKey("dbo.StudentAttendanceRecord", "StudentID", "dbo.Student");
+            DropForeignKey("dbo.Lesson", "Location_LocationID", "dbo.Location");
+            DropForeignKey("dbo.AttendanceRecord", "Location_LocationID", "dbo.Location");
             DropForeignKey("dbo.AttendanceRecord", "LessonID", "dbo.Lesson");
             DropIndex("dbo.StudentAttendanceRecord", new[] { "AttendanceRecordID" });
             DropIndex("dbo.StudentAttendanceRecord", new[] { "StudentID" });
+            DropIndex("dbo.Lesson", new[] { "Location_LocationID" });
+            DropIndex("dbo.AttendanceRecord", new[] { "Location_LocationID" });
             DropIndex("dbo.AttendanceRecord", new[] { "LessonID" });
             DropIndex("dbo.AttendanceRecord", new[] { "CourseID" });
             DropIndex("dbo.AttendanceRecord", new[] { "LocationID" });
             DropIndex("dbo.AttendanceRecord", new[] { "StudyGroupID" });
+            DropColumn("dbo.Lesson", "Location_LocationID");
             DropTable("dbo.StudentAttendanceRecord");
             DropTable("dbo.AttendanceRecord");
         }

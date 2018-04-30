@@ -18,7 +18,7 @@ namespace StudentManager2.Controllers
         // GET: Course
         public ActionResult Index()
         {
-            return View(db.Courses.ToList());
+            return View(db.Courses.Include(c => c.Lessons));
         }
 
         // GET: Course/Details/5

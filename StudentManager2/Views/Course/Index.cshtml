@@ -14,8 +14,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Level)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.NumberOfLessons)
         </th>
         <th></th>
     </tr>
@@ -25,13 +28,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
-        <td>
+        <td class="text-center">
             @Html.DisplayFor(modelItem => item.Level)
         </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.NumberOfLessons)
+        </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
         </td>
     </tr>
 }
