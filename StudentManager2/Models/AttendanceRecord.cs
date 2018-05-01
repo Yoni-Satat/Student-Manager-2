@@ -9,7 +9,6 @@ namespace StudentManager2.Models
     {
         public int AttendanceRecordID { get; set; }
         public int? StudyGroupID { get; set; }
-        [ForeignKey("Location")]
         public int? LocationID { get; set; }
         public int? CourseID { get; set; }
         public int? LessonID { get; set; }
@@ -19,7 +18,7 @@ namespace StudentManager2.Models
         public string Notes { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
-        [DataType(DataType.Time)][Column(TypeName = "DateTime2")]
+        [DataType(DataType.Time)]
         public DateTime Time { get; set; }
 
         public virtual Course Course { get; set; }
