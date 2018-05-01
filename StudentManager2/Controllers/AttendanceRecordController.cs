@@ -116,8 +116,7 @@ namespace StudentManager2.Controllers
 
         private void PopulateStudentAttendanceRecord(AttendanceRecord attendance)
         {
-            var selectedGroup = db.StudyGroups.Where(sg => sg.StudyGroupID == attendance.StudyGroupID).Single();
-            //var students = db.Students;
+            var selectedGroup = db.StudyGroups.Where(sg => sg.StudyGroupID == attendance.StudyGroupID).Single();            
             var studyGroupStudents = new HashSet<int>(attendance.Students.Select(s => s.StudentID));
             db.Entry(selectedGroup).Collection(sg => sg.Students).Load();
             var viewModel = new List<StudentsAttendanceRecord>();
@@ -147,6 +146,7 @@ namespace StudentManager2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             var recordToUpdate = db.AttendanceRecords
                .Include(s => s.Location)
                .Include(s => s.Students)
@@ -160,6 +160,8 @@ namespace StudentManager2.Controllers
 
                     UpdateAttendanceRecord(selectedStudents, recordToUpdate);
                     var selectedRecord = db.AttendanceRecords.Where(a => a.AttendanceRecordID == id).Single();
+                    selectedRecord.Date = DateTime.Now;
+                    selectedRecord.Time = DateTime.Now;
                     db.Entry(selectedRecord).State = EntityState.Modified;
                     db.SaveChanges();
 
