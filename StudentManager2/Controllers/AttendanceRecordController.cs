@@ -35,7 +35,10 @@ namespace StudentManager2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AttendanceRecord attendanceRecord = db.AttendanceRecords.Find(id);
+            AttendanceRecord attendanceRecord = db.AttendanceRecords
+                .Include(ar => ar.StudyGroup)
+                .Include(ar => ar.Students)
+                .Where(ar => ar.AttendanceRecordID == id).Single();
             if (attendanceRecord == null)
             {
                 return HttpNotFound();
@@ -56,7 +59,7 @@ namespace StudentManager2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AttendanceRecordID,StudyGroupID,TutorName,Notes,Date,Time,LocationID")] AttendanceRecord attendanceRecord)
+        public ActionResult Create([Bind(Include = "AttendanceRecordID,StudyGroupID,TutorName,Notes,Date,Time,LocationID,CourseID")] AttendanceRecord attendanceRecord)
         {
             if (ModelState.IsValid)
             {
@@ -150,19 +153,21 @@ namespace StudentManager2.Controllers
             var recordToUpdate = db.AttendanceRecords
                .Include(s => s.Location)
                .Include(s => s.Students)
+               .Include(s => s.StudyGroup.Course)
                .Where(s => s.AttendanceRecordID == id)
                .Single();
             if (TryUpdateModel(recordToUpdate, "",
-                new string[] { "StudyGroupID", "LocationID", "TutorName", "Notes", "Date", "Time", "LessonID" }))
+                new string[] { "StudyGroupID", "LocationID", "TutorName", "Notes", "Date", "Time", "LessonID" , "CourseID"}))
             {
                 try
                 {
 
                     UpdateAttendanceRecord(selectedStudents, recordToUpdate);
                     var selectedRecord = db.AttendanceRecords.Where(a => a.AttendanceRecordID == id).Single();
+                    selectedRecord.CourseID = selectedRecord.StudyGroup.CourseID;
                     selectedRecord.Date = DateTime.Now;
                     selectedRecord.Time = DateTime.Now;
-                    db.Entry(selectedRecord).State = EntityState.Modified;
+                    db.Entry(selectedRecord).State = EntityState.Modified;                    
                     db.SaveChanges();
 
                     return RedirectToAction("Index");

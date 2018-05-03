@@ -60,6 +60,10 @@
 
     </dl>
 </div>
+@foreach (var s in Model.Students)
+{
+    <p>@s.FullName</p>
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AttendanceRecordID }) |
     @Html.ActionLink("Back to List", "Index")

@@ -25,15 +25,15 @@
     @Html.HiddenFor(model => model.AttendanceRecordID)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.LessonID, "LessonID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.LessonID, "Lesson Topic", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("LessonID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.LessonID, (SelectList)ViewBag.MyList, "Please select", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LessonID, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.LocationID, "LocationID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.LocationID, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("LocationID", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })

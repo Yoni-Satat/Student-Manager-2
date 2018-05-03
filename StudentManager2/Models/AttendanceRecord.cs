@@ -26,5 +26,7 @@ namespace StudentManager2.Models
         public virtual StudyGroup StudyGroup { get; set; }
         public virtual Location Location { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+
+        
     }
 }

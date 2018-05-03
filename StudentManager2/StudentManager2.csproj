@@ -163,6 +163,7 @@
     <Compile Include="Controllers\StudyGroupController.cs" />
     <Compile Include="DAL\ContextInitializer.cs" />
     <Compile Include="DAL\StudentContext.cs" />
+    <Compile Include="Extentions\Extentions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

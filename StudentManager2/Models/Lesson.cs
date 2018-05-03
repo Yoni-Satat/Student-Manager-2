@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using StudentManager2.Extentions;
 
 namespace StudentManager2.Models
 {
@@ -23,6 +24,7 @@ namespace StudentManager2.Models
         public DateTime? Date { get; set; }
 
         public bool IsMandatory { get; set; }
+        
 
         public virtual Course Course { get; set; }
         public virtual Location Location { get; set; }
