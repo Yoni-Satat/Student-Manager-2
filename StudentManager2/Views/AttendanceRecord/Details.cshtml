@@ -7,58 +7,30 @@
 <h2>Details</h2>
 
 <div>
-    <h4>AttendanceRecord</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.StudyGroup.GroupTitle)
-        </dt>
+    <h4>Attendance Record for</h4>
+    
+    <table class="table table-hover table-responsive">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.StudyGroup.GroupTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.Course.Title)</th>
+            <th>Lesson</th>
+            <th>Notes</th>
+            <th>Last Updated</th>
+            <th>Number of Students</th>
+            <th>Students Attending</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.StudyGroup.GroupTitle)</td>
+            <td>@Html.DisplayFor(model => model.StudyGroup.Course.Title)</td>
+            <td>@Html.DisplayFor(model => model.Lesson.Topic)</td>
+            <td>@Html.DisplayFor(model => model.Notes)</td>
+            <td>@Html.DisplayFor(model => model.Date)</td>
+            <td>@Html.DisplayFor(model => model.StudyGroup.Students.Count)</td>
+            <td>@Html.DisplayFor(model => model.Students.Count)</td>
+            <td></td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudyGroup.GroupTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TutorName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TutorName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LocationID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LocationID)
-        </dd>
-
-    </dl>
+    </table>
 </div>
 @foreach (var s in Model.Students)
 {

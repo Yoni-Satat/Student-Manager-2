@@ -15,6 +15,8 @@ namespace StudentManager2.Models
 
         public virtual Course Course { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+
+        
     }
 }
 

@@ -37,6 +37,9 @@ namespace StudentManager2.Controllers
             }
             AttendanceRecord attendanceRecord = db.AttendanceRecords
                 .Include(ar => ar.StudyGroup)
+                .Include(ar => ar.StudyGroup.Students)
+                .Include(ar => ar.StudyGroup.Course)
+                .Include(ar => ar.Lesson)
                 .Include(ar => ar.Students)
                 .Where(ar => ar.AttendanceRecordID == id).Single();
             if (attendanceRecord == null)
@@ -48,7 +51,7 @@ namespace StudentManager2.Controllers
 
         // GET: AttendanceRecord/Create
         public ActionResult Create()
-        {
+        {         
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle");
             ViewBag.LocationID = new SelectList(db.Locations, "LocationID", "Building");
             return View();
@@ -68,22 +71,19 @@ namespace StudentManager2.Controllers
                     var record = new AttendanceRecord
                     {
                         StudyGroupID = attendanceRecord.StudyGroupID,
+                        CourseID = attendanceRecord.CourseID,
                         TutorName = attendanceRecord.TutorName,
                         Notes = attendanceRecord.Notes,
                         Date = DateTime.Now,
                         Time = DateTime.Now,
                         LocationID = attendanceRecord.LocationID
                     };
-                    context.Entry(record).State = EntityState.Added;
+                    context.Entry(record).State = EntityState.Added;                    
                     context.SaveChanges();
                 }
-                
-                //db.AttendanceRecords.Add(attendanceRecord);
-                //db.Entry(attendanceRecord).State = EntityState.Added;
-                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.StudyGroupID = new SelectList(db.StudyGroups, "StudyGroupID", "GroupTitle", attendanceRecord.StudyGroupID);
             ViewBag.LocattionID = new SelectList(db.Locations, "LocationID", "Building", attendanceRecord.LocationID);
             return View(attendanceRecord);
@@ -165,6 +165,7 @@ namespace StudentManager2.Controllers
                     UpdateAttendanceRecord(selectedStudents, recordToUpdate);
                     var selectedRecord = db.AttendanceRecords.Where(a => a.AttendanceRecordID == id).Single();
                     selectedRecord.CourseID = selectedRecord.StudyGroup.CourseID;
+                    selectedRecord.LocationID = selectedRecord.LocationID;
                     selectedRecord.Date = DateTime.Now;
                     selectedRecord.Time = DateTime.Now;
                     db.Entry(selectedRecord).State = EntityState.Modified;                    
