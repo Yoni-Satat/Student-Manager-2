@@ -16,8 +16,9 @@
             <th>Lesson</th>
             <th>Notes</th>
             <th>Last Updated</th>
-            <th>Number of Students</th>
-            <th>Students Attending</th>
+            <th class="text-center">Number of Students</th>
+            <th class="text-center">Students Attending</th>
+            <th class="text-center">Group Attendance</th>
         </tr>
         <tr>
             <td>@Html.DisplayFor(model => model.StudyGroup.GroupTitle)</td>
@@ -25,9 +26,17 @@
             <td>@Html.DisplayFor(model => model.Lesson.Topic)</td>
             <td>@Html.DisplayFor(model => model.Notes)</td>
             <td>@Html.DisplayFor(model => model.Date)</td>
-            <td>@Html.DisplayFor(model => model.StudyGroup.Students.Count)</td>
-            <td>@Html.DisplayFor(model => model.Students.Count)</td>
-            <td></td>
+            <td class="text-center">@Html.DisplayFor(model => model.StudyGroup.Students.Count)</td>
+            <td class="text-center">@Html.DisplayFor(model => model.Students.Count)</td>
+            @if (Model.Students.Count - Model.StudyGroup.Students.Count == 0)
+            {
+                <td class="text-success text-center">100% attendance!</td>
+            }
+            else
+            {
+                <td class="text-danger text-center">@($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")</td>
+            }
+
         </tr>
 
     </table>
