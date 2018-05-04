@@ -30,21 +30,35 @@
             <td class="text-center">@Html.DisplayFor(model => model.Students.Count)</td>
             @if (Model.Students.Count - Model.StudyGroup.Students.Count == 0)
             {
-                <td class="text-success text-center">100% attendance!</td>
+            <td class="text-success text-center">
+                @($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")
+            </td>
             }
             else
             {
-                <td class="text-danger text-center">@($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")</td>
+                <td class="text-danger text-center">
+                    @($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")
+                </td>
             }
 
         </tr>
 
     </table>
 </div>
-@foreach (var s in Model.Students)
-{
-    <p>@s.FullName</p>
-}
+<ol>
+    @foreach (var s in Model.StudyGroup.Students)
+    {
+        if (Model.Students.Contains(s))
+        {
+            <li class="text-success">@s.FullName</li>
+        }
+        else
+        {
+            <li class="text-danger">@s.FullName</li>
+        }
+    }
+</ol>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AttendanceRecordID }) |
     @Html.ActionLink("Back to List", "Index")
