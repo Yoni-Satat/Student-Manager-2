@@ -45,21 +45,41 @@
 
     </table>
 </div>
-<ol>
-    @foreach (var s in Model.StudyGroup.Students)
-    {
-        if (Model.Students.Contains(s))
-        {
-            <li class="text-success">@s.FullName</li>
-        }
-        else
-        {
-            <li class="text-danger">@s.FullName</li>
-        }
-    }
-</ol>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AttendanceRecordID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="container col-md-8">
+    <h4>Presence Table</h4>
+    <table class="table">
+        <tr>
+            <th>Student Name</th>
+            <th class="text-center">Present</th>
+            <th class="text-center">Absent</th>
+        </tr>
+        @foreach (var s in Model.StudyGroup.Students)
+        {
+            if (Model.Students.Contains(s))
+            {
+                <tr>
+                    <td>@s.FullName</td>
+                    <td class="text-center text-success"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></td>
+                    <td></td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>@s.FullName</td>
+                    <td></td>
+                    <td class="text-center text-danger"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></td>
+                </tr>
+            }
+        }
+    </table>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.AttendanceRecordID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+
+
+
+
