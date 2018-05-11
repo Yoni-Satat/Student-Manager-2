@@ -59,21 +59,19 @@ namespace StudentManager2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             StudyGroup studyGroup = db.StudyGroups
-                .Include(s => s.Students)
-                .Include(s => s.Course)
+                .Include("Students.AttendanceRecords")
+                .Include("Course.Lessons")
                 .Where(s => s.StudyGroupID == id).Single();
-
-
-            PopulateStudentsList(studyGroup);
 
             if (studyGroup == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.AttendanceRecordID = db.AttendanceRecords.Where(ar => ar.StudyGroupID == id);
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", studyGroup.CourseID);
             return View(studyGroup);
         }
-
+        
         // GET: StudyGroup/Create
         public ActionResult Create()
         {
@@ -212,8 +210,6 @@ namespace StudentManager2.Controllers
             }
         }
 
-
-
         private void PopulateStudentsList(object selectedStudent = null)
         {
             var studentsQuery = from s in db.Students
@@ -221,6 +217,16 @@ namespace StudentManager2.Controllers
                                 select s;
             ViewBag.StudentID = new SelectList(studentsQuery, "StudentID", "FirstName", selectedStudent);
         }
+
+        private void PopulateAttendanceRecords(object selectedRecord = null)
+        {
+            var recordQuery = from r in db.AttendanceRecords
+                              orderby r.AttendanceRecordID
+                              select r;
+            ViewBag.AttendanceRecordID = new SelectList(recordQuery, "AttendanceRecordID", "Date", selectedRecord);
+        }
+
+        
 
         // GET: StudyGroup/Delete/5
         public ActionResult Delete(int? id)

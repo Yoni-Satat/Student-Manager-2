@@ -55,7 +55,19 @@ namespace StudentManager2.Migrations
                         Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()},
             new Student{FirstName="Nino",LastName="Olivetto",DateOfBirth=DateTime.Parse("2005-09-01"),
                         MatricNumber ="SN0008", Gender="Male",
-                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()}
+                        Adjustments=false, Origin="UK", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()},
+            new Student{FirstName="Rob",LastName="Williams",DateOfBirth=DateTime.Parse("2005-09-01"),
+                        MatricNumber ="SN0009", Gender="Male",
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()},
+            new Student{FirstName="Lisa",LastName="McDonald",DateOfBirth=DateTime.Parse("2006-11-01"),
+                        MatricNumber ="SN0010", Gender="Female",
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()},
+            new Student{FirstName="Barbara",LastName="Gordova",DateOfBirth=DateTime.Parse("2006-01-12"),
+                        MatricNumber ="SN0011", Gender="Female",
+                        Adjustments=true, Origin="EU", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()},
+            new Student{FirstName="Aron",LastName="Crowther",DateOfBirth=DateTime.Parse("2005-03-31"),
+                        MatricNumber ="SN0001", Gender="Male",
+                        Adjustments=true, Origin="UK", YearOfStudy=2018, ImageURL="", StudyGroups = new List<StudyGroup>()}
             };
 
             students.ForEach(s => context.Students.AddOrUpdate(p => p.StudentID, s));

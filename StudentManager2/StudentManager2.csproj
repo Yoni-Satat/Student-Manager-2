@@ -183,6 +183,10 @@
     <Compile Include="Migrations\201805011829000_AttendanceRecordHasOptionalLocation.Designer.cs">
       <DependentUpon>201805011829000_AttendanceRecordHasOptionalLocation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805081922501_UpdateStudyGroupModel.cs" />
+    <Compile Include="Migrations\201805081922501_UpdateStudyGroupModel.Designer.cs">
+      <DependentUpon>201805081922501_UpdateStudyGroupModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AttendanceRecord.cs" />
     <Compile Include="Models\Course.cs" />
@@ -292,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805011829000_AttendanceRecordHasOptionalLocation.resx">
       <DependentUpon>201805011829000_AttendanceRecordHasOptionalLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081922501_UpdateStudyGroupModel.resx">
+      <DependentUpon>201805081922501_UpdateStudyGroupModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

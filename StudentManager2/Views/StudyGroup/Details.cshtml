@@ -1,7 +1,7 @@
 ﻿@model StudentManager2.Models.StudyGroup
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Group Details";
 }
 
 <h2>Group Details</h2>
@@ -11,6 +11,7 @@
         <li><h4><strong>Group Title:</strong>@($"  {this.Model.GroupTitle}")</h4></li>
         <li><h4><strong>Course Title:</strong>@($"  {this.Model.Course.Title}")</h4></li>
         <li><h4><strong>Course Level:</strong>@($"  {this.Model.Course.Level}")</h4></li>
+        <li><h4><strong>Number of Lessons:</strong>@($"  {this.Model.Course.Lessons.Count}")</h4></li>
     </ul>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.StudyGroupID }) |
@@ -21,21 +22,31 @@
     <table class="table">
         <tr>
             <th>Student Name</th>
-            <th>Date of Birth</th>
-            <th>Matriculation No.</th>
-            <th>Nationality</th>
+            <th class="text-center">Date of Birth</th>
+            <th class="text-center">Matriculation No.</th>
+            <th class="text-center">Nationality</th>
+            <th class="text-center">Student's records to date</th>
         </tr>
         @foreach (var student in Model.Students)
         {
-            <tr>
-                <td>@student.FullName</td>
-                <td>@student.DateOfBirth</td>
-                <td>@student.MatricNumber</td>
-                <td>@student.Origin</td>
-            </tr>
+            var records = Model.AttendanceRecords.Count;
+            var studentRecords = student.AttendanceRecords.Count;
+        <tr>
+            <td>@student.FullName</td>
+            <td class="text-center">@student.DateOfBirth.ToShortDateString()</td>
+            <td class="text-center">@student.MatricNumber</td>
+            <td class="text-center">@student.Origin</td>
+            @if (records - studentRecords >= 3)
+            {
+                <td class="text-center label-danger">@studentRecords / @records</td>
+            }
+            else
+            {
+                <td class="text-center label-success">@studentRecords / @records</td>
+            }
 
-        }
+        </tr>
+
+}
     </table>
-
-
 </div>

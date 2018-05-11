@@ -1,17 +1,21 @@
 ﻿@model StudentManager2.Models.AttendanceRecord
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Attendance Record | Details";
 }
 
-<h2>Details</h2>
+<h2>Attendance Record</h2>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AttendanceRecordID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
 <div>
-    <h4>Attendance Record for</h4>
+    <h4>Details for</h4>
     
     <table class="table table-hover table-responsive">
         <tr>
-            <th scope="col">@Html.DisplayNameFor(model => model.StudyGroup.GroupTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.StudyGroup.GroupTitle)</th>
             <th>@Html.DisplayNameFor(model => model.Course.Title)</th>
             <th>Lesson</th>
             <th>Notes</th>
@@ -30,9 +34,9 @@
             <td class="text-center">@Html.DisplayFor(model => model.Students.Count)</td>
             @if (Model.Students.Count - Model.StudyGroup.Students.Count == 0)
             {
-            <td class="text-success text-center">
-                @($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")
-            </td>
+                <td class="text-success text-center">
+                    @($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")
+                </td>
             }
             else
             {
@@ -40,44 +44,44 @@
                     @($"{this.Model.Students.Count} out of {this.Model.StudyGroup.Students.Count} students")
                 </td>
             }
-
         </tr>
 
     </table>
 </div>
 
-<div class="container col-md-8">
+<div class="container col-md-6">
     <h4>Presence Table</h4>
-    <table class="table">
+    <table class="table table-responsive">
         <tr>
             <th>Student Name</th>
+            <th>Nationality</th>
             <th class="text-center">Present</th>
             <th class="text-center">Absent</th>
         </tr>
         @foreach (var s in Model.StudyGroup.Students)
         {
+            var absent = 0;
             if (Model.Students.Contains(s))
             {
                 <tr>
                     <td>@s.FullName</td>
+                    <td>@s.Origin</td>
                     <td class="text-center text-success"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></td>
                     <td></td>
                 </tr>
             }
             else
             {
+                absent++;
                 <tr>
                     <td>@s.FullName</td>
+                    <td>@s.Origin</td>
                     <td></td>
                     <td class="text-center text-danger"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></td>
                 </tr>
             }
         }
-    </table>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.AttendanceRecordID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    </table>    
 </div>
 
 
